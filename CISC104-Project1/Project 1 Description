@@ -1,0 +1,7 @@
+// My project is a user interface simulation of a 1 versus 1 basketball game. 
+// The interface consists of of two player texts, two shoot buttons, two contest buttons, two score keepers, and text to declare a winner. 
+// Each player has a certain chance of scoring and they both have certain ratings of their defense against each other. 
+// When you run the game, you should first press the Contest Player 2 and Contest Player 1 buttons to have both players contest each other's shots. 
+// You should then click between the Player 1 Shoot and Player 2 Shoot buttons and see how their scores change based on who scores and misses. 
+// If a player misses, their score will not change and if they do score, their score will change. 
+// You should keep clicking between the shoot buttons until one player gets a score of 10 and the winner text declares a winner.
