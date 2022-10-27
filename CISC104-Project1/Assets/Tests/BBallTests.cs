@@ -12,8 +12,8 @@ public class BBallTests
         Player1 defaultPlayer1 = new Player1();
         Player2 defaultPlayer2 = new Player2();
 
-        Assert.AreNotEqual(1, defaultPlayer1.MakeShot());
-        Assert.AreNotEqual(1, defaultPlayer2.MakeShot());
+        Assert.AreEqual(45, defaultPlayer1.GetScoreToWin());
+        Assert.AreEqual(40, defaultPlayer2.GetScoreToWin());
     }
 
     [Test]
