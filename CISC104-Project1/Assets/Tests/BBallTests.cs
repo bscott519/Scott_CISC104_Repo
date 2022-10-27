@@ -28,9 +28,12 @@ public class BBallTests
     [Test]
     public void Player2ContestsPlayer1()
     {
-        Player2 player2Guards = new Player2();
-        int amountOfContest = 40;
+        Player1 newPlayer1 = new Player1();
+        Player2 newPlayer2 = new Player2();
+        int player1NaturalMakes = new Player1().GetScoreToWin();
 
-        Assert.That(amountOfContest == 40);
+        newPlayer2.ContestPlayer1(newPlayer1);
+
+        Assert.AreEqual(player1NaturalMakes + 40, newPlayer1.GetScoreToWin());
     }
 }
