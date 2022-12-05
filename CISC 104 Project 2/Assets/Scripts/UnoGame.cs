@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnoGame : MonoBehaviour
 {
     public Cards[] cards;
+    public RawImage currentCardImage;
     private int currentCardIndex;
     public GameObject cardTextGameObject;
     private TextMeshProUGUI cardText;
@@ -14,10 +16,10 @@ public class UnoGame : MonoBehaviour
     {
         currentCardIndex = 0;
         cardText = cardTextGameObject.GetComponent<TextMeshProUGUI>();
-
+        SetImage();
     }
 
-    void PreviousCard()
+    public void PreviousCard()
     {
         if(currentCardIndex == 0)
         {
@@ -27,12 +29,12 @@ public class UnoGame : MonoBehaviour
         {
             currentCardIndex--;
         }
-
+        SetImage();
     }
 
-    void NextCard()
+    public void NextCard()
     {
-        if (currentCardIndex == 0)
+        if(currentCardIndex == 0)
         {
             currentCardIndex = cards.Length - 1;
         }
@@ -40,6 +42,20 @@ public class UnoGame : MonoBehaviour
         {
             currentCardIndex++;
         }
+        SetImage();
+    }
+    
+    private void SetImage()
+    {
+        cardText.text = cards[currentCardIndex].CardName;
 
+        if (cards[currentCardIndex].cardImage != null)
+        {
+            currentCardImage.texture = cards[currentCardIndex].cardImage.texture;
+        }
+        else
+        {
+            currentCardImage.texture = null;
+        }
     }
 }

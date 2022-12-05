@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum CardDeck
 {
@@ -52,10 +53,20 @@ public enum CardDeck
     BlueMinus2,
     YellowMinus2,
     GreenMinus2,
-
+    RedMinus4,
+    BlueMinus4,
+    YellowMinus4,
+    GreenMinus4
 }
 
 public class Cards : MonoBehaviour
 {
-   
+    public string CardName;
+
+    public RawImage cardImage;
+
+    public int bigness;
+
+    public CardDeck cardDeck;
+
 }
