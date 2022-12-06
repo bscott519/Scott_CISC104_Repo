@@ -12,11 +12,18 @@ public class UnoGame : MonoBehaviour
     public GameObject cardTextGameObject;
     private TextMeshProUGUI cardText;
 
+    public GameObject winnerTextObject;
+
+    private TextMeshProUGUI winnerText;
+
+
     void Start()
     {
         currentCardIndex = 0;
         cardText = cardTextGameObject.GetComponent<TextMeshProUGUI>();
         SetImage();
+
+        winnerText = winnerTextObject.GetComponent<TextMeshProUGUI>();
     }
 
     public void PreviousCard()
@@ -57,5 +64,25 @@ public class UnoGame : MonoBehaviour
         {
             currentCardImage.texture = null;
         }
+    }
+
+    void Update()
+    {
+        winnerText.text = "Player #1 Wins!";
+    }
+
+    public void PlayButton()
+    {
+        
+    }
+
+    public void DrawButton()
+    {
+        currentCardIndex++;
+    }
+
+    public void RestartButton()
+    {
+        currentCardIndex = 0;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardDeck
+public enum CardSuit
 {
     RedZero,
     RedOne,
@@ -67,6 +67,6 @@ public class Cards : MonoBehaviour
 
     public int bigness;
 
-    public CardDeck cardDeck;
+    public CardSuit cardSuit;
 
 }
