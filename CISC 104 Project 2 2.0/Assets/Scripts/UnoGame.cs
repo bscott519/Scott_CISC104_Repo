@@ -20,6 +20,8 @@ public class UnoGame : MonoBehaviour
     private int c1CardCount;            // Count of how many cards the computers have in hand
     private int c2CardCount;
 
+    private string lastCardPlayed = ""; // Placeholder for the last card played information
+
     public Button previousCardButton;   // Button for the previous card
     public Button nextCardButton;       // Button for the next card
     public Button startButton;          // Button to start/restart the game
@@ -61,6 +63,11 @@ public class UnoGame : MonoBehaviour
         
     }
 
+    // called to shuffle cards
+    private void shuffleCards()
+    {
+        
+    }
 
     // called to deal out cards to each player (8)
     private void dealingPhase()
@@ -68,12 +75,6 @@ public class UnoGame : MonoBehaviour
         // For loop
         // Subtract 1 from each count out of the loop
 
-    }
-
-    // called to shuffle cards
-    private void shuffleCards()
-    {
-        // For loop
     }
 
     // Follows same concept as user play and deal but in one function

@@ -15,6 +15,7 @@ public enum CardSuit
     RedSkipTurn, BlueSkipTurn, YellowSkipTurn, GreenSkipTurn,
     RedMinus2, BlueMinus2, YellowMinus2, GreenMinus2,
     RedMinus4, BlueMinus4, YellowMinus4, GreenMinus4
+
 }
 
 public class Cards : MonoBehaviour
@@ -24,5 +25,4 @@ public class Cards : MonoBehaviour
     public int value;           // Number
     public string color;        // Color
     public int specialFlag;     // 0 = nothing 1 = has skip/minus
-    public string lastCard = "";
 }
