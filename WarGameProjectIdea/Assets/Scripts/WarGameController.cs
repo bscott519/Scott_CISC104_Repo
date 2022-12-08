@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random=UnityEngine.Random;
 
 
@@ -22,17 +24,53 @@ public class WarGameController : MonoBehaviour
     public int userWonCount;
     public int computerWonCount;
 
+    public GameObject titleTextObject; // Text Object for Title
+    public GameObject statusTextObject; // Text Object for the Status of the game
+    public GameObject computerWonTextObject; // Text Object for the Computer Won Count
+    public GameObject userWonTextObject; // Text Object for the User Won Count
+    public GameObject winnerTextObject; // Text Object for the Winner
+
+
+    private TextMeshProUGUI titleText; // Text for Title
+    private TextMeshProUGUI statusText; // Text for the Status of the game
+    private TextMeshProUGUI computerWonText; // Text for the Computer Won Count
+    private TextMeshProUGUI userWonText; // Text for the User Won Count
+    private TextMeshProUGUI winnerText; // Text for the Winner
+
+
+    public Button startButton; // Button to start the game
+    public Button playButton; // Button to play the game
+
     // Start is called before the first frame update
     void Start()
     {
         // Lock buttons except start button
         // Set default text
+        titleText = titleTextObject.GetComponent<TextMeshProUGUI>();
+        statusText = statusTextObject.GetComponent<TextMeshProUGUI>();
+        computerWonText = computerWonTextObject.GetComponent<TextMeshProUGUI>();
+        userWonText = userWonTextObject.GetComponent<TextMeshProUGUI>();
+        winnerText = winnerTextObject.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // update counters text objects in here
+        computerWonText.text = "Computer Won Count: " + computerWonCount.ToString();
+        userWonText.text = "User Won Count: " + userWonCount.ToString();
+    }
+
+    // Start Button triggers pressedStartGame
+    public void StartButton()
+    {
+        pressedStartGame();
+    }
+
+    // Play Button triggers playRound
+    public void PlayButton()
+    {
+        playRound();
     }
 
     // Start Game (Start Game Button Pressed)
@@ -121,9 +159,11 @@ public class WarGameController : MonoBehaviour
             if (userWon.Count > computerWon.Count)  // User won
             {
                 // Set winner text object to say user won with x amount of cards
+                winnerText.text = "Winner: User won with " + userWonCount + " cards!".ToString();
             } else 
             {
                 // Set winner text object to say computer won with x amount of cards
+                winnerText.text = "Winner: Computer won with " + computerWonCount + " cards!".ToString();
             }
         } else 
         {
@@ -132,12 +172,16 @@ public class WarGameController : MonoBehaviour
                 userWon.Push(userDealt.Pop());
                 userWon.Push(computerDealt.Pop());
                 // update status text to say user won round
+                statusText.text = "User won the round!".ToString();
+                userWonCount++;
                 // update text for user won counter
             } else                                          // Computer won the hand
             {
                 computerWon.Push(computerDealt.Pop());
                 computerWon.Push(userDealt.Pop());
                 // update status text to say cpu won round
+                statusText.text = "Computer won the round!".ToString();
+                computerWonCount++;
                 // update text for cpu won counter
             }
         }
