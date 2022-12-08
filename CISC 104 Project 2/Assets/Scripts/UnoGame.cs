@@ -6,16 +6,18 @@ using UnityEngine.UI;
 
 public class UnoGame : MonoBehaviour
 {
-    public Cards[] cards;
+    // Array that cards get shuffled and the cards get dealt and drawn out of
+    public Cards[] dealingDeck;
 
+    // Array to hold the hands for the user and computer, as well as a discard pile
     public Cards[] userHand;
     public Cards[] computer1Hand;
     public Cards[] computer2Hand;
     public Cards[] usedCards;
 
-    private int currentCardIndex;
-    private int playerCardCount;
-    private int c1CardCount;
+    private int currentCardIndex;   // Index of the current card
+    private int playerCardCount;    // Count of how many cards the user has in hand
+    private int c1CardCount;        // Count of how many cards the computers have in hand
     private int c2CardCount;
 
     public GameObject cardTextGameObject;
@@ -29,9 +31,8 @@ public class UnoGame : MonoBehaviour
     void Start()
     {
         currentCardIndex = 0;
-        cardText = cardTextGameObject.GetComponent<TextMeshProUGUI>();
-        
 
+        cardText = cardTextGameObject.GetComponent<TextMeshProUGUI>();
         winnerText = winnerTextObject.GetComponent<TextMeshProUGUI>();
     }
 
@@ -39,6 +40,25 @@ public class UnoGame : MonoBehaviour
     void Update()
     {
         winnerText.text = "Player #1 Wins!";
+    }
+
+    // called to deal out cards to each player (8)
+    private void dealingPhase()
+    {
+
+    }
+
+    // called to shuffle cards
+    private void shuffleCards()
+    {
+
+    }
+
+    // Follows same concept as user play and deal but in one function
+    // Uses a flag to determine which computer player is actually being affected
+    private void computerLogic()
+    {
+
     }
 
     // cycles hand to the left 1
