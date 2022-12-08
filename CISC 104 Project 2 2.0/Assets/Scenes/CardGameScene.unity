@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 1117493031}
   - component: {fileID: 1117493030}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StartbuttonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
