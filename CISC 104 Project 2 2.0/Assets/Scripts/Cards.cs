@@ -24,4 +24,5 @@ public class Cards : MonoBehaviour
     public int value;           // Number
     public string color;        // Color
     public int specialFlag;     // 0 = nothing 1 = has skip/minus
+    public string lastCard = "";
 }

@@ -119,6 +119,15 @@ public class UnoGame : MonoBehaviour
 
         //disable after the card has been entered
         // also disable next and previous card
+        string PlaceHolder = "";
+
+        if (userHand == computer1Hand)
+        {
+            playerCardCount--;
+        }
+        else
+        {
+        }
     }
 
     // Draw a card
@@ -126,6 +135,16 @@ public class UnoGame : MonoBehaviour
     {
         // continue drawing card until either color or number match
         // disabled when you do have a card
+        string PlaceHolder = "";
+
+        if (userHand != computer1Hand)
+        {
+        }
+        else
+        {
+            playerCardCount++;
+        }
+
         currentCardIndex++;
 
         //disable draw button after right match has been picked
