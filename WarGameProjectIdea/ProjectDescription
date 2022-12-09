@@ -1,0 +1,2 @@
+Our game is a simulated game of War, based off of the card game War. To play, you have to start by pressing the start button and then the play button to play a round against the computer player.
+The status will tell you who won each round as you keep pressing play to play each round. The game ends when all the cards are used in the game and a winner is declared. To replay the game, press the restart button.
