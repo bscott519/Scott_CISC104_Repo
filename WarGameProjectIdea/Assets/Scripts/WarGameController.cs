@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random=UnityEngine.Random;
+using Random=UnityEngine.Random;    // Declare which random is being usd (not system.random)
 
 
 // What needs to be done?
@@ -21,42 +21,42 @@ public class WarGameController : MonoBehaviour
     public Stack<int> computerDealt = new Stack<int>();     // Stack to hold the cards dealt to the computer
     public Stack<int> computerWon = new Stack<int>();       // Stack to hold the cards won by the computer
 
-    public int userWonCount;
-    public int computerWonCount;
+    public int userWonCount;                                // User won counter
+    public int computerWonCount;                            // Computer won counter
 
-    public GameObject titleTextObject; // Text Object for Title
-    public GameObject statusTextObject; // Text Object for the Status of the game
-    public GameObject computerWonTextObject; // Text Object for the Computer Won Count
-    public GameObject userWonTextObject; // Text Object for the User Won Count
-    public GameObject winnerTextObject; // Text Object for the Winner
+    public GameObject titleTextObject;                      // Text Object for Title
+    public GameObject statusTextObject;                     // Text Object for the Status of the game
+    public GameObject computerWonTextObject;                // Text Object for the Computer Won Count
+    public GameObject userWonTextObject;                    // Text Object for the User Won Count
+    public GameObject startButtonTextObject;                // Text Object for the Start Button
 
+    private TextMeshProUGUI titleText;                      // Text for Title
+    private TextMeshProUGUI statusText;                     // Text for the Status of the game
+    private TextMeshProUGUI computerWonText;                // Text for the Computer Won Count
+    private TextMeshProUGUI userWonText;                    // Text for the User Won Count
+    private TextMeshProUGUI startButtonText;                // Text for the Start Button
 
-    private TextMeshProUGUI titleText; // Text for Title
-    private TextMeshProUGUI statusText; // Text for the Status of the game
-    private TextMeshProUGUI computerWonText; // Text for the Computer Won Count
-    private TextMeshProUGUI userWonText; // Text for the User Won Count
-    private TextMeshProUGUI winnerText; // Text for the Winner
-
-
-    public Button startButton; // Button to start the game
-    public Button playButton; // Button to play the game
+    public Button startButton;                              // Button to start the game
+    public Button playButton;                               // Button to play the game
 
     // Start is called before the first frame update
     void Start()
     {
         // Lock buttons except start button
+        playButton.interactable = false;
+
         // Set default text
         titleText = titleTextObject.GetComponent<TextMeshProUGUI>();
         statusText = statusTextObject.GetComponent<TextMeshProUGUI>();
         computerWonText = computerWonTextObject.GetComponent<TextMeshProUGUI>();
         userWonText = userWonTextObject.GetComponent<TextMeshProUGUI>();
-        winnerText = winnerTextObject.GetComponent<TextMeshProUGUI>();
+        startButtonText = startButtonTextObject.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // update counters text objects in here
+        // Update counters text objects
         computerWonText.text = "Computer Won Count: " + computerWonCount.ToString();
         userWonText.text = "User Won Count: " + userWonCount.ToString();
     }
@@ -74,7 +74,7 @@ public class WarGameController : MonoBehaviour
     }
 
     // Start Game (Start Game Button Pressed)
-    public void pressedStartGame()
+    private void pressedStartGame()
     {
         // Clear Decks and start/restart the game
         while (userDealt.Count != 0 || userWon.Count != 0 || computerDealt.Count != 0 || computerWon.Count != 0)
@@ -84,7 +84,14 @@ public class WarGameController : MonoBehaviour
             computerDealt.Pop();
             computerWon.Pop();
         }
-        // Reset status text to default, reset counters to default 0
+        // Reset status text to default, reset counters to default 0, reset buttons
+        userWonCount = 0;
+        computerWonCount = 0;
+        playButton.interactable = true;
+        startButtonText.text = "Restart";
+        startButton.interactable = false;
+        statusText.text = "Press 'play' to play a round!";
+
         dealCards();    // Restart the deal cards
     }
 
@@ -105,8 +112,8 @@ public class WarGameController : MonoBehaviour
             computerDealt.Push(dealingStack.Pop());
             userDealt.Push(dealingStack.Pop());
         }
-        // Disable the start button and enable the play round button
     }
+
 
     // Shuffles the int values of a stack
     private void shuffleCards()
@@ -133,12 +140,13 @@ public class WarGameController : MonoBehaviour
             shuffleCopy[n] = temp;
         }
         
-        // Fill the stack with shuffled int
+        // Fill the stack with shuffled int array
         for (int l = 0; l < 54; l++)
         {
             dealingStack.Push(shuffleCopy[l]);
         }
 
+        // Clear the array
         Array.Clear(shuffleCopy, 0, shuffleCopy.Length);
     }
 
@@ -151,7 +159,7 @@ public class WarGameController : MonoBehaviour
     // Checks Cards (Game Logic)
     private void checkCards()
     {
-        if (userDealt.Count == 0)   // If all cards have been played by the user
+        if (userDealt.Count == 0 || computerDealt.Count == 0)   // If all cards have been played by the user
         {
             // Disable play button
             // Enable the start game button
@@ -159,30 +167,36 @@ public class WarGameController : MonoBehaviour
             if (userWon.Count > computerWon.Count)  // User won
             {
                 // Set winner text object to say user won with x amount of cards
-                winnerText.text = "Winner: User won with " + userWonCount + " cards!".ToString();
+                statusText.text = "Winner: User won with " + userWonCount + " cards!".ToString();
+                playButton.interactable = false;
+                startButton.interactable = true;
             } else 
             {
                 // Set winner text object to say computer won with x amount of cards
-                winnerText.text = "Winner: Computer won with " + computerWonCount + " cards!".ToString();
+                statusText.text = "Winner: Computer won with " + computerWonCount + " cards!".ToString();
+                playButton.interactable = false;
+                startButton.interactable = true;
             }
-        } else 
+        } else                                              // Still have cards to play
         {
             if (userDealt.Peek() > computerDealt.Peek())    // User won the hand
             {
+                // Add cards into correct won pile
                 userWon.Push(userDealt.Pop());
                 userWon.Push(computerDealt.Pop());
-                // update status text to say user won round
-                statusText.text = "User won the round!".ToString();
-                userWonCount++;
-                // update text for user won counter
+                // Update status text to say user won round
+                statusText.text = "User won the round!";
+                // Update Counter
+                userWonCount++; 
             } else                                          // Computer won the hand
             {
+                // Add cards to correct win pile
                 computerWon.Push(computerDealt.Pop());
                 computerWon.Push(userDealt.Pop());
-                // update status text to say cpu won round
-                statusText.text = "Computer won the round!".ToString();
+                // Update status text to say cpu won round
+                statusText.text = "Computer won the round!";
+                // Update Counter
                 computerWonCount++;
-                // update text for cpu won counter
             }
         }
     }
