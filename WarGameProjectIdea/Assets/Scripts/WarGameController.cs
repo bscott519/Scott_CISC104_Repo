@@ -77,11 +77,12 @@ public class WarGameController : MonoBehaviour
     private void pressedStartGame()
     {
         // Clear Decks and start/restart the game
-        while (userDealt.Count != 0 || userWon.Count != 0 || computerDealt.Count != 0 || computerWon.Count != 0)
+        while (userDealt.Count != 0 || userWon.Count != 0)
         {
-            userDealt.Pop();
             userWon.Pop();
-            computerDealt.Pop();
+        }
+        while (computerDealt.Count != 0 || computerWon.Count != 0)
+        {
             computerWon.Pop();
         }
         // Reset status text to default, reset counters to default 0, reset buttons
@@ -107,7 +108,7 @@ public class WarGameController : MonoBehaviour
         shuffleCards(); // Function to shuffle a stack
 
         // Deal cards starting with computer
-        for (int d = 0; d < dealingStack.Count; d++)
+        for (int d = 1; d <= 27; d++)
         {
             computerDealt.Push(dealingStack.Pop());
             userDealt.Push(dealingStack.Pop());
@@ -159,43 +160,43 @@ public class WarGameController : MonoBehaviour
     // Checks Cards (Game Logic)
     private void checkCards()
     {
-        if (userDealt.Count == 0 || computerDealt.Count == 0)   // If all cards have been played by the user
+        if (userDealt.Count == 0 || computerDealt.Count == 0)   // If all cards have been played
         {
-            // Disable play button
-            // Enable the start game button
             // Check to see who won
-            if (userWon.Count > computerWon.Count)  // User won
+            if (userWon.Count > computerWon.Count)              // User won
             {
                 // Set winner text object to say user won with x amount of cards
-                statusText.text = "Winner: User won with " + userWonCount + " cards!".ToString();
+                statusText.text = "Winner: User won with " + userWonCount.ToString() + " cards!";
                 playButton.interactable = false;
                 startButton.interactable = true;
             } else 
             {
                 // Set winner text object to say computer won with x amount of cards
-                statusText.text = "Winner: Computer won with " + computerWonCount + " cards!".ToString();
+                statusText.text = "Winner: Computer won with " + computerWonCount.ToString() + " cards!";
                 playButton.interactable = false;
                 startButton.interactable = true;
             }
-        } else                                              // Still have cards to play
+        } else                                                  // Still have cards to play
         {
-            if (userDealt.Peek() > computerDealt.Peek())    // User won the hand
+            if (userDealt.Peek() > computerDealt.Peek())        // User won the hand
             {
+                // Update status text to say user won round
+                statusText.text = "User won the round with " + userDealt.Peek().ToString() + " VS " + computerDealt.Peek().ToString();
                 // Add cards into correct won pile
                 userWon.Push(userDealt.Pop());
                 userWon.Push(computerDealt.Pop());
-                // Update status text to say user won round
-                statusText.text = "User won the round!";
                 // Update Counter
                 userWonCount++; 
-            } else                                          // Computer won the hand
+                userWonCount++;
+            } else                                              // Computer won the hand
             {
+                // Update status text to say user won round
+                statusText.text = "Computer won the round with " + computerDealt.Peek().ToString() + " VS " + userDealt.Peek().ToString();
                 // Add cards to correct win pile
                 computerWon.Push(computerDealt.Pop());
                 computerWon.Push(userDealt.Pop());
-                // Update status text to say cpu won round
-                statusText.text = "Computer won the round!";
                 // Update Counter
+                computerWonCount++;
                 computerWonCount++;
             }
         }
